@@ -1,0 +1,356 @@
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	new file:   .gitignore
+#	modified:   AndroidEbow/bin/classes/com/example/androidebow/Display.class
+#	modified:   AndroidEbow/bin/classes/com/example/androidebow/EbowRenderer.class
+#	modified:   DataNormaliser/bin/DataNormaliser/DataHolder.class
+#	modified:   DataNormaliser/src/DataNormaliser/DataHolder.java
+#	modified:   FileReader/bin/FileReader/ObjFileReader.class
+#	modified:   FileReader/src/FileReader/ObjFileReader.java
+#	modified:   Game/bin/Ebow/Display.class
+#	modified:   Game/bin/Ebow/Ebow$1$1$1.class
+#	modified:   Game/bin/Ebow/Ebow$1$1.class
+#	modified:   Game/bin/Ebow/Ebow$1.class
+#	modified:   Game/bin/Ebow/Ebow$2.class
+#	modified:   Game/bin/Ebow/Ebow.class
+#	modified:   Game/bin/Ebow/GameKeyListener.class
+#	modified:   Game/bin/shaders/MDLVertexShader.glsl
+#	modified:   Game/bin/shaders/TRANSFragmentShader.glsl
+#	modified:   Game/shaders/MDLVertexShader.glsl
+#	modified:   Game/shaders/TRANSFragmentShader.glsl
+#	modified:   Game/src/Ebow/Display.java
+#	modified:   Game/src/Ebow/Ebow.java
+#	modified:   Game/src/Ebow/GameKeyListener.java
+#	modified:   GameEngine/bin/GameEngine/Alien1.class
+#	modified:   GameEngine/bin/GameEngine/Background.class
+#	modified:   GameEngine/bin/GameEngine/Bullet.class
+#	modified:   GameEngine/bin/GameEngine/BulletGenerator.class
+#	modified:   GameEngine/bin/GameEngine/CollisionDetector.class
+#	deleted:    GameEngine/bin/GameEngine/DLinkedList.class
+#	deleted:    GameEngine/bin/GameEngine/DLinkedListNode.class
+#	modified:   GameEngine/bin/GameEngine/DualShot.class
+#	modified:   GameEngine/bin/GameEngine/Enemy.class
+#	modified:   GameEngine/bin/GameEngine/EnemyShip.class
+#	modified:   GameEngine/bin/GameEngine/EnemyShip2.class
+#	modified:   GameEngine/bin/GameEngine/Engine.class
+#	modified:   GameEngine/bin/GameEngine/Explosion.class
+#	modified:   GameEngine/bin/GameEngine/FlameGun.class
+#	modified:   GameEngine/bin/GameEngine/GameEngine.class
+#	modified:   GameEngine/bin/GameEngine/GameObj.class
+#	deleted:    GameEngine/bin/GameEngine/Grid.class
+#	modified:   GameEngine/bin/GameEngine/GunBarrel.class
+#	modified:   GameEngine/bin/GameEngine/HUD.class
+#	modified:   GameEngine/bin/GameEngine/InPlayObj.class
+#	modified:   GameEngine/bin/GameEngine/JetFire.class
+#	modified:   GameEngine/bin/GameEngine/LaserRectangle.class
+#	modified:   GameEngine/bin/GameEngine/LaserRound.class
+#	modified:   GameEngine/bin/GameEngine/Level.class
+#	deleted:    GameEngine/bin/GameEngine/LiveEnemys.class
+#	modified:   GameEngine/bin/GameEngine/MissileLauncher.class
+#	modified:   GameEngine/bin/GameEngine/MissileLauncherBarrel.class
+#	modified:   GameEngine/bin/GameEngine/MovementMirror.class
+#	modified:   GameEngine/bin/GameEngine/MovementTrack.class
+#	modified:   GameEngine/bin/GameEngine/Particle.class
+#	modified:   GameEngine/bin/GameEngine/Player.class
+#	modified:   GameEngine/bin/GameEngine/PlayerPart.class
+#	modified:   GameEngine/bin/GameEngine/PowerUp.class
+#	modified:   GameEngine/bin/GameEngine/PowerUpHealth.class
+#	modified:   GameEngine/bin/GameEngine/PowerUpWeapon.class
+#	modified:   GameEngine/bin/GameEngine/RearGun.class
+#	modified:   GameEngine/bin/GameEngine/Row.class
+#	modified:   GameEngine/bin/GameEngine/Ship.class
+#	modified:   GameEngine/bin/GameEngine/Smoke.class
+#	modified:   GameEngine/bin/GameEngine/Star.class
+#	modified:   GameEngine/bin/GameEngine/StarMachine.class
+#	modified:   GameEngine/bin/GameEngine/SwivleBarrel.class
+#	modified:   GameEngine/bin/GameEngine/SwivleShip.class
+#	modified:   GameEngine/bin/GameEngine/WallGun.class
+#	modified:   GameEngine/bin/GameEngine/WallGunTurret.class
+#	modified:   GameEngine/bin/GameEngine/Wallpaper.class
+#	modified:   GameEngine/src/GameEngine/Alien1.java
+#	modified:   GameEngine/src/GameEngine/Background.java
+#	modified:   GameEngine/src/GameEngine/Bullet.java
+#	modified:   GameEngine/src/GameEngine/BulletGenerator.java
+#	modified:   GameEngine/src/GameEngine/CollisionDetector.java
+#	deleted:    GameEngine/src/GameEngine/DLinkedList.java
+#	deleted:    GameEngine/src/GameEngine/DLinkedListNode.java
+#	modified:   GameEngine/src/GameEngine/DualShot.java
+#	modified:   GameEngine/src/GameEngine/Enemy.java
+#	modified:   GameEngine/src/GameEngine/EnemyShip.java
+#	modified:   GameEngine/src/GameEngine/EnemyShip2.java
+#	modified:   GameEngine/src/GameEngine/Engine.java
+#	modified:   GameEngine/src/GameEngine/Explosion.java
+#	modified:   GameEngine/src/GameEngine/GameEngine.java
+#	modified:   GameEngine/src/GameEngine/GameObj.java
+#	deleted:    GameEngine/src/GameEngine/Grid.java
+#	modified:   GameEngine/src/GameEngine/GunBarrel.java
+#	modified:   GameEngine/src/GameEngine/HUD.java
+#	modified:   GameEngine/src/GameEngine/InPlayObj.java
+#	modified:   GameEngine/src/GameEngine/JetFire.java
+#	modified:   GameEngine/src/GameEngine/Level.java
+#	deleted:    GameEngine/src/GameEngine/LiveEnemys.java
+#	modified:   GameEngine/src/GameEngine/MissileLauncher.java
+#	modified:   GameEngine/src/GameEngine/MissileLauncherBarrel.java
+#	modified:   GameEngine/src/GameEngine/MovementMirror.java
+#	modified:   GameEngine/src/GameEngine/MovementTrack.java
+#	new file:   GameEngine/src/GameEngine/MovementWait.java
+#	modified:   GameEngine/src/GameEngine/Particle.java
+#	modified:   GameEngine/src/GameEngine/Player.java
+#	modified:   GameEngine/src/GameEngine/PlayerPart.java
+#	modified:   GameEngine/src/GameEngine/PowerUp.java
+#	modified:   GameEngine/src/GameEngine/PowerUpHealth.java
+#	modified:   GameEngine/src/GameEngine/PowerUpWeapon.java
+#	modified:   GameEngine/src/GameEngine/RearGun.java
+#	modified:   GameEngine/src/GameEngine/Row.java
+#	modified:   GameEngine/src/GameEngine/Ship.java
+#	modified:   GameEngine/src/GameEngine/Smoke.java
+#	modified:   GameEngine/src/GameEngine/Star.java
+#	modified:   GameEngine/src/GameEngine/StarMachine.java
+#	modified:   GameEngine/src/GameEngine/SwivleBarrel.java
+#	modified:   GameEngine/src/GameEngine/SwivleShip.java
+#	modified:   GameEngine/src/GameEngine/Tracker.java
+#	modified:   GameEngine/src/GameEngine/WallGun.java
+#	modified:   GameEngine/src/GameEngine/WallGunTurret.java
+#	modified:   GameEngine/src/GameEngine/Wallpaper.java
+#	new file:   JOGL_Latest/aggregated.artifact.properties.sorted
+#	new file:   JOGL_Latest/all.artifact.properties.sorted
+#	new file:   JOGL_Latest/apk/gluegen-rt-android-armeabi.apk
+#	new file:   JOGL_Latest/apk/joal-android-armeabi.apk
+#	new file:   JOGL_Latest/apk/joal-test-android.apk
+#	new file:   JOGL_Latest/apk/jocl-armeabi.apk
+#	new file:   JOGL_Latest/apk/jogamp-android-launcher.apk
+#	new file:   JOGL_Latest/apk/jogl-all-android-armeabi.apk
+#	new file:   JOGL_Latest/apk/jogl-test-android.apk
+#	new file:   JOGL_Latest/apk/unsigned/gluegen-rt-android-armeabi.apk
+#	new file:   JOGL_Latest/apk/unsigned/joal-android-armeabi.apk
+#	new file:   JOGL_Latest/apk/unsigned/joal-test-android.apk
+#	new file:   JOGL_Latest/apk/unsigned/jocl-armeabi.apk
+#	new file:   JOGL_Latest/apk/unsigned/jogamp-android-launcher.apk
+#	new file:   JOGL_Latest/apk/unsigned/jogl-all-android-armeabi.apk
+#	new file:   JOGL_Latest/apk/unsigned/jogl-test-android.apk
+#	new file:   JOGL_Latest/etc/profile.jogl
+#	new file:   JOGL_Latest/etc/test.bat
+#	new file:   JOGL_Latest/etc/test.sh
+#	new file:   JOGL_Latest/etc/test_dbg.bat
+#	new file:   JOGL_Latest/etc/test_dbg.sh
+#	new file:   JOGL_Latest/gluegen.LICENSE.txt
+#	new file:   JOGL_Latest/gluegen.artifact.properties
+#	new file:   JOGL_Latest/jar/atomic/gluegen-gl.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-awt.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-cg-natives-android-armv6.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-cg-natives-linux-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-cg-natives-linux-armv6.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-cg-natives-linux-armv6hf.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-cg-natives-linux-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-cg-natives-macosx-universal.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-cg-natives-solaris-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-cg-natives-solaris-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-cg-natives-windows-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-cg-natives-windows-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-cg.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-core.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-gldesktop-dbg.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-gldesktop.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-glmobile-dbg.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-glmobile.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-glu-gldesktop.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-glu.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-natives-android-armv6.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-natives-linux-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-natives-linux-armv6.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-natives-linux-armv6hf.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-natives-linux-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-natives-macosx-universal.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-natives-solaris-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-natives-solaris-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-natives-windows-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-natives-windows-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-omx.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-os-android.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-os-osx.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-os-win.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-os-x11.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-sdk.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-swt.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-util-awt.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-util-fixedfuncemu.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-util-gldesktop.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-util-graph.jar
+#	new file:   JOGL_Latest/jar/atomic/jogl-util.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-awt.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-core.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-natives-android-armv6.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-natives-linux-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-natives-linux-armv6.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-natives-linux-armv6hf.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-natives-linux-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-natives-macosx-universal.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-natives-solaris-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-natives-solaris-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-natives-windows-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-natives-windows-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-os-osx.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-os-win.jar
+#	new file:   JOGL_Latest/jar/atomic/nativewindow-os-x11.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-awt.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-core.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-driver-android.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-driver-bcm-old.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-driver-bcm-vc.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-driver-intelgdl.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-driver-kd.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-driver-linux.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-driver-osx.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-driver-win.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-driver-x11.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-event.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-natives-android-armv6.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-natives-linux-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-natives-linux-armv6.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-natives-linux-armv6hf.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-natives-linux-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-natives-macosx-universal.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-natives-solaris-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-natives-solaris-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-natives-windows-amd64.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-natives-windows-i586.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-ogl.jar
+#	new file:   JOGL_Latest/jar/atomic/newt-swt.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt-android.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt-natives-android-armv6.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt-natives-linux-amd64.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt-natives-linux-armv6.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt-natives-linux-armv6hf.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt-natives-linux-i586.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt-natives-macosx-universal.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt-natives-solaris-amd64.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt-natives-solaris-i586.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt-natives-windows-amd64.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt-natives-windows-i586.jar
+#	new file:   JOGL_Latest/jar/gluegen-rt.jar
+#	new file:   JOGL_Latest/jar/gluegen.jar
+#	new file:   JOGL_Latest/jar/joal-android.jar
+#	new file:   JOGL_Latest/jar/joal-natives-android-armv6.jar
+#	new file:   JOGL_Latest/jar/joal-natives-linux-amd64.jar
+#	new file:   JOGL_Latest/jar/joal-natives-linux-armv6.jar
+#	new file:   JOGL_Latest/jar/joal-natives-linux-armv6hf.jar
+#	new file:   JOGL_Latest/jar/joal-natives-linux-i586.jar
+#	new file:   JOGL_Latest/jar/joal-natives-macosx-universal.jar
+#	new file:   JOGL_Latest/jar/joal-natives-solaris-amd64.jar
+#	new file:   JOGL_Latest/jar/joal-natives-solaris-i586.jar
+#	new file:   JOGL_Latest/jar/joal-natives-windows-amd64.jar
+#	new file:   JOGL_Latest/jar/joal-natives-windows-i586.jar
+#	new file:   JOGL_Latest/jar/joal-test-android.jar
+#	new file:   JOGL_Latest/jar/joal-test.jar
+#	new file:   JOGL_Latest/jar/joal.jar
+#	new file:   JOGL_Latest/jar/jocl-natives-android-armv6.jar
+#	new file:   JOGL_Latest/jar/jocl-natives-linux-amd64.jar
+#	new file:   JOGL_Latest/jar/jocl-natives-linux-armv6.jar
+#	new file:   JOGL_Latest/jar/jocl-natives-linux-armv6hf.jar
+#	new file:   JOGL_Latest/jar/jocl-natives-linux-i586.jar
+#	new file:   JOGL_Latest/jar/jocl-natives-macosx-universal.jar
+#	new file:   JOGL_Latest/jar/jocl-natives-solaris-amd64.jar
+#	new file:   JOGL_Latest/jar/jocl-natives-solaris-i586.jar
+#	new file:   JOGL_Latest/jar/jocl-natives-windows-amd64.jar
+#	new file:   JOGL_Latest/jar/jocl-natives-windows-i586.jar
+#	new file:   JOGL_Latest/jar/jocl.jar
+#	new file:   JOGL_Latest/jar/jogl-all-android.jar
+#	new file:   JOGL_Latest/jar/jogl-all-mobile.jar
+#	new file:   JOGL_Latest/jar/jogl-all-natives-android-armv6.jar
+#	new file:   JOGL_Latest/jar/jogl-all-natives-linux-amd64.jar
+#	new file:   JOGL_Latest/jar/jogl-all-natives-linux-armv6.jar
+#	new file:   JOGL_Latest/jar/jogl-all-natives-linux-armv6hf.jar
+#	new file:   JOGL_Latest/jar/jogl-all-natives-linux-i586.jar
+#	new file:   JOGL_Latest/jar/jogl-all-natives-macosx-universal.jar
+#	new file:   JOGL_Latest/jar/jogl-all-natives-solaris-amd64.jar
+#	new file:   JOGL_Latest/jar/jogl-all-natives-solaris-i586.jar
+#	new file:   JOGL_Latest/jar/jogl-all-natives-windows-amd64.jar
+#	new file:   JOGL_Latest/jar/jogl-all-natives-windows-i586.jar
+#	new file:   JOGL_Latest/jar/jogl-all-noawt.jar
+#	new file:   JOGL_Latest/jar/jogl-all.jar
+#	new file:   JOGL_Latest/jar/jogl-test-android.jar
+#	new file:   JOGL_Latest/jar/jogl-test.jar
+#	new file:   JOGL_Latest/jnlp-files/atomic/jogl-awt.jnlp
+#	new file:   JOGL_Latest/jnlp-files/atomic/jogl-noawt.jnlp
+#	new file:   JOGL_Latest/jnlp-files/atomic/nativewindow-awt.jnlp
+#	new file:   JOGL_Latest/jnlp-files/atomic/nativewindow-noawt.jnlp
+#	new file:   JOGL_Latest/jnlp-files/atomic/newt-awt-jogl.jnlp
+#	new file:   JOGL_Latest/jnlp-files/atomic/newt-awt.jnlp
+#	new file:   JOGL_Latest/jnlp-files/atomic/newt-noawt-jogl.jnlp
+#	new file:   JOGL_Latest/jnlp-files/atomic/newt-noawt.jnlp
+#	new file:   JOGL_Latest/jnlp-files/gluegen-rt.jnlp
+#	new file:   JOGL_Latest/jnlp-files/joal.jnlp
+#	new file:   JOGL_Latest/jnlp-files/jocl.jnlp
+#	new file:   JOGL_Latest/jnlp-files/jogl-all-awt-cg.jnlp
+#	new file:   JOGL_Latest/jnlp-files/jogl-all-awt.jnlp
+#	new file:   JOGL_Latest/jnlp-files/jogl-all-mobile.jnlp
+#	new file:   JOGL_Latest/jnlp-files/jogl-all-noawt.jnlp
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-ElektronenMultiplizierer-napplet.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-ElektronenMultiplizierer.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-GraphTextDemo01-napplet.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-GraphTextDemo01.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-GraphUISceneDemo01-napplet.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-GraphUISceneDemo01.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-MovieCube-napplet.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-MovieCube.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-gears-gl3-napplet.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-gears-normal-launcheronly.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-gears-normal-napplet.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-gears-normal-napplet2.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-gears-normal.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-gears-special-napplet.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt-gears-special.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-runner-newt.jnlp
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-version-lancheronly.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-version-napplet.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-version.html
+#	new file:   JOGL_Latest/jnlp-files/jogl-applet-version.jnlp
+#	new file:   JOGL_Latest/jnlp-files/jogl-application-version.jnlp
+#	new file:   JOGL_Latest/jnlp-files/jogl-javaws-version.jnlp
+#	new file:   JOGL_Latest/jnlp-files/jogl-test-applets.html
+#	new file:   JOGL_Latest/joal.LICENSE.txt
+#	new file:   JOGL_Latest/joal.README.txt
+#	new file:   JOGL_Latest/joal.artifact.properties
+#	new file:   JOGL_Latest/jocl.artifact.properties
+#	new file:   JOGL_Latest/jogl.LICENSE.txt
+#	new file:   JOGL_Latest/jogl.README.txt
+#	new file:   JOGL_Latest/jogl.artifact.properties
+#	new file:   JOGL_Latest/lib/README.txt
+#	new file:   JOGL_Latest/lib/android-armv6/README.txt
+#	new file:   JOGL_Latest/lib/linux-amd64/README.txt
+#	new file:   JOGL_Latest/lib/linux-armv6/README.txt
+#	new file:   JOGL_Latest/lib/linux-armv6hf/README.txt
+#	new file:   JOGL_Latest/lib/linux-i586/README.txt
+#	new file:   JOGL_Latest/lib/macosx-universal/README.txt
+#	new file:   JOGL_Latest/lib/macosx-universal/libgluegen-rt.jnilib
+#	new file:   JOGL_Latest/lib/macosx-universal/libjoal.jnilib
+#	new file:   JOGL_Latest/lib/macosx-universal/libjocl.dylib
+#	new file:   JOGL_Latest/lib/macosx-universal/libjogl_cg.jnilib
+#	new file:   JOGL_Latest/lib/macosx-universal/libjogl_desktop.jnilib
+#	new file:   JOGL_Latest/lib/macosx-universal/libjogl_mobile.jnilib
+#	new file:   JOGL_Latest/lib/macosx-universal/libnativewindow_awt.jnilib
+#	new file:   JOGL_Latest/lib/macosx-universal/libnativewindow_macosx.jnilib
+#	new file:   JOGL_Latest/lib/macosx-universal/libnewt.jnilib
+#	new file:   JOGL_Latest/lib/solaris-amd64/README.txt
+#	new file:   JOGL_Latest/lib/solaris-i586/README.txt
+#	new file:   JOGL_Latest/lib/windows-amd64/README.txt
+#	new file:   JOGL_Latest/lib/windows-i586/README.txt
+#	modified:   LevelEditor/bin/LevelEditorGUI.class
+#	modified:   LevelEditor/bin/LevelHolder.class
+#	modified:   LevelEditor/src/LevelEditorGUI.java
+#	modified:   LevelEditor/src/LevelHolder.java
+#	modified:   OpenGLTools/bin/OpenGLTools/ShaderProgram.class
+#	modified:   OpenGLTools/bin/OpenGLTools/TextureLibrary.class
+#	modified:   OpenGLTools/src/OpenGLTools/ShaderProgram.java
+#	modified:   OpenGLTools/src/OpenGLTools/TextureLibrary.java
+#	modified:   VMQ/bin/VMQ/Vec3.class
+#	modified:   VMQ/bin/VMQ/WindowDimensions.class
+#	modified:   VMQ/src/VMQ/Vec3.java
+#	modified:   VMQ/src/VMQ/WindowDimensions.java
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	log
