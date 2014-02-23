@@ -37,6 +37,9 @@ public abstract class GameObj extends Observable{
 	}
 	
 	public void setPosition(Vec3 position) {
+		if (Float.isNaN(position.getX())) throw new IllegalArgumentException("object "+this+" bad X position");
+		if (Float.isNaN(position.getY())) throw new IllegalArgumentException("object "+this+" bad Y position");
+		if (Float.isNaN(position.getZ())) throw new IllegalArgumentException("object "+this+" bad Z position");
 		this.position = position;
 	}
 
@@ -45,6 +48,10 @@ public abstract class GameObj extends Observable{
 	}
 	
 	public void setRotation(Quaternion q) {
+		if (Float.isNaN(q.getW())) throw new IllegalArgumentException("object "+this+" quaternion "+q+" bad X position");
+		if (Float.isNaN(q.getX())) throw new IllegalArgumentException("object "+this+" quaternion "+q+" bad X position");
+		if (Float.isNaN(q.getY())) throw new IllegalArgumentException("object "+this+" quaternion "+q+" bad Y position");
+		if (Float.isNaN(q.getZ())) throw new IllegalArgumentException("object "+this+" quaternion "+q+" bad Z position");
 		this.rotation = q;
 	}
 	

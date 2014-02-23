@@ -47,14 +47,17 @@ public class Vec3 implements Serializable{
 	}		
 	
 	public void setX(float x) {
+		if (Float.isNaN(x)) throw new IllegalArgumentException("BAD NAN");
 		vec3[0] = x;
 	}
 	
 	public void setY(float y) {
+		if (Float.isNaN(y)) throw new IllegalArgumentException("BAD NAN");
 		vec3[1] = y;
 	}
 	
 	public void setZ(float z) {
+		if (Float.isNaN(z)) throw new IllegalArgumentException("BAD NAN");
 		vec3[2] = z;
 	}
 	

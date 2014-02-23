@@ -56,13 +56,13 @@ public class Tracker {
 			yAxis = toTrack.getRotation().GetYVector();
 		}
 		if (followAxis[2]) {
-			zAxis = toTrack.getRotation().GetZVector();			
+			zAxis = toTrack.getRotation().GetZVector();
 		}		
 		newPos = newPos.add(xAxis.multiply(offset.getX()));
 		// offset position along Y vector		
 		newPos = newPos.add(yAxis.multiply(offset.getY()));
 		// offset position along Z vector		
-		newPos = newPos.add(zAxis.multiply(offset.getZ()));		
+		newPos = newPos.add(zAxis.multiply(offset.getZ()));
 		// set the position
 		parent.setPosition(newPos);
 		if (followRotation) {

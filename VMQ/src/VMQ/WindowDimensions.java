@@ -5,29 +5,32 @@ import java.util.Observable;
 
 public class WindowDimensions extends Observable{
 	
-	private float width;
-	private float height;
+	private float screenWidth;
+	private float screenHeight;
+	private float aspect;
 	private float fovy;
 	private float zFar;
-	private float zNear;
+	private float zNear;	
 	private Mat4x4 projectionMatrix;
 	private Mat4x4 viewMatrix;
-	
 	private Vec3 eye;
 	private Vec3 center;
 	private Vec3 up;
 	
-	public WindowDimensions(float width,float height,float fovy,float zNear,float zFar,Vec3 eye,Vec3 center,Vec3 up) {
-		this.width = width;
-		this.height = height;
+	public WindowDimensions(float screenWidth,float screenHeight,float aspect,float fovy,float zNear,float zFar,Vec3 eye,Vec3 center,Vec3 up) {
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
+		this.aspect = aspect;
+		
 		this.fovy = fovy;
+		
 		this.zFar = zFar;
 		this.zNear = zNear;
-		setProjectionMatrix();
 		
 		this.eye = eye;
 		this.center = center;
 		this.up = up;
+		setProjectionMatrix();
 		setViewMatrix();
 	}
 	
@@ -56,11 +59,11 @@ public class WindowDimensions extends Observable{
 	}
 	
 	public void setWidth(int width) {
-		this.width = width;
+		this.screenWidth = width;
 	}
 	
 	public void setHeight(int height) {
-		this.height = height;
+		this.screenHeight = height;
 	}
 	
 	public void setFovy(float fovy) {
@@ -84,11 +87,11 @@ public class WindowDimensions extends Observable{
 	}
 	
 	public float getWidth() {
-		return width;
+		return screenWidth;
 	}
 	
 	public float getHeight() {
-		return height;
+		return screenHeight;
 	}
 	
 	public float getFovyDeg() {
@@ -99,21 +102,24 @@ public class WindowDimensions extends Observable{
 		return (float) Math.toRadians(fovy);
 	}
 	
+	public void setAspect(float aspect) {
+		this.aspect = aspect;
+	}
+	
 	public float getAspect() {
-		return (float) width/height;
+		return aspect;
 	}
 	
 	public float getMaxXPos(float zCalc) {
-//		System.out.println("Max X "+(getMaxYPos(zCalc)*(4.0f/3.0f)));
-//		return (float) (getMaxYPos(zCalc)*(4.0f/3.0f));
-		System.out.println("Max X "+(zCalc*Math.tan(getFovyRad()/2)*getAspect()));
-		System.out.println("ASPECT "+getAspect());
 		return (float) (zCalc*Math.tan(getFovyRad()/2)*getAspect());
-	}
+	}				
 	
 	public float getMaxYPos(float zCalc) {
-		System.out.println("Max Y "+(float) (zCalc*Math.tan(getFovyRad()/2)));
 		return (float) (zCalc*Math.tan(getFovyRad()/2));		
+	}	
+
+	public void setEyeHeightFromWidth(float width) {
+		eye.setY((float)(width*(1/Math.tan(getFovyRad()/2))));		
 	}
 	
 	public void setViewMatrix() {
@@ -159,18 +165,20 @@ public class WindowDimensions extends Observable{
 	}
 	
 	public void setProjectionMatrix() {
-		float f = (float) (1/Math.tan(getFovyRad()/2));
-		float g = (zFar+zNear)/(zNear-zFar);
-		float h = (2*zFar*zNear)/(zNear-zFar);
+		float far = center.getY()-zFar;
+		float near = center.getY()+zNear;
+		
+		float f = (float) (1.0f/Math.tan(getFovyRad()/2));
+		float g = (far+near)/(near-far);
+		float h = (2*far*near)/(near-far);
 		// Column matrix
 		this.projectionMatrix = new Mat4x4(new float[] {f/getAspect(),0,0,0,
 														0,f,0,0,
 														0,0,g,-1,
-														0,0,h,0});
-//		Matrix.frustumM(projectionMatrix, 0, -getAspect(), getAspect(), -1, 1, 1, 100);
+														0,0,h,0});			
 		this.setChanged();
 		this.notifyObservers();
-	}
+	}		
 	
 	public Mat4x4 getProjectionMatrix() {
 		return projectionMatrix;

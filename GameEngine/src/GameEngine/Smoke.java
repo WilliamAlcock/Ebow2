@@ -20,7 +20,7 @@ public class Smoke extends Particle{
 		// Set the color
 		setColor(new Vec3(1.0f,0.8f,0.0f));
 		// Set the color change
-		setColorChange(new Vec3(1.0f,0.8f,0.0f));
+		setColorChange(new Vec3(2.5f,2.0f,0.0f));
 	}
 
 	public String getType() {

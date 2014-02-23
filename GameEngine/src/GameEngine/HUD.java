@@ -43,7 +43,7 @@ public class HUD implements Observer{
 	 * position the objects relative to the window
 	 */
 	private void positionObjects() {
-		float topScreen = windowDimensions.getMaxYPos(5);
+	/*	float topScreen = windowDimensions.getMaxYPos(5);
 		float xBox = windowDimensions.getMaxXPos(-5)+dimensions.get("HealthBarBox").getX()+0.02f;
 		float yBox = (topScreen*-1)+dimensions.get("HealthBarBox").getY()+0.02f;
 		float xBar = xBox + (float)(dimensions.get("HealthBarBox").getX()/3); 
@@ -51,7 +51,7 @@ public class HUD implements Observer{
 		float xDigit = windowDimensions.getMaxXPos(5)-(dimensions.get("Digit0").getX()*scoreBoard.getNumDigits())-0.02f;
 		healthBar.setPosition(new Vec3(xBar,yBox,-5));
 		healthBarBox.setPosition(new Vec3(xBox,yBox,-5));
-		scoreBoard.setPosition(new Vec3(xDigit,yDigit,-5));
+		scoreBoard.setPosition(new Vec3(xDigit,yDigit,-5));		*/
 	}
 	
 	/* 

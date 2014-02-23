@@ -32,7 +32,7 @@ public class GameKeyListener implements KeyListener{
 	public void keyReleased(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		keyBuffer[keyCode]=false;
-		if (keyCode==KeyEvent.VK_ESCAPE)  {
+		if (e.getKeyCode() == e.VK_ESCAPE) {
 			ebow.quit();
 		}
 	}

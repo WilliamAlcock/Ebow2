@@ -69,6 +69,7 @@ public class DataHolder extends Observable {
 	public void refreshFromFiles() {
 		ObjectDataModel newDataModel = new ObjectDataModel();
 		for (String curObj: this.dataModel.fileNames.keySet()) {
+			System.out.println("Refreshing file "+this.dataModel.fileNames.get(curObj));
 			if (!addToDataHolder(this.dataModel.fileNames.get(curObj),curObj,newDataModel)) {
 				report("Error refreshing files, file "+this.dataModel.fileNames.get(curObj)+" not found");
 				report("To enable refreshing you must replace this file");
@@ -77,6 +78,7 @@ public class DataHolder extends Observable {
 			report("Refreshed file "+this.dataModel.fileNames.get(curObj));
 		}
 		this.dataModel = newDataModel;
+		report("\nAll Files Correctly Refreshed\n");
 	}
 	
 	private void addTexture(String textureName,ObjectDataModel dataModel) {
@@ -129,7 +131,7 @@ public class DataHolder extends Observable {
 			refs.remove(new Reference(objectName,objectIndex));
 		} else if (references.size()<1) {
 			// this should never happen
-			System.out.println("BAD ERROR WITH REFERENCES - remove ");
+			System.err.println("BAD ERROR WITH REFERENCES - remove ");
 		}
 	}
 	
@@ -139,7 +141,7 @@ public class DataHolder extends Observable {
 			references.get(index).get(indexToChange).name = newObjectName;
 		} else {
 			// this should not happen
-			System.out.println("BAD ERROR WITH REFERENCES - rename");
+			System.err.println("BAD ERROR WITH REFERENCES - rename");
 		}
 	}
 	
@@ -150,9 +152,6 @@ public class DataHolder extends Observable {
 			// Update the material references
 			MeshObject[] curMeshObjs = dataModel.meshObjs.get(oldObjectName);
 			for (int i=0;i<curMeshObjs.length;i++) {
-				
-				System.out.println("Material Index: "+curMeshObjs[i].getMaterialIndex());
-				System.out.println("VBO Index: "+curMeshObjs[i].getVBOIndex());
 				changeReference(dataModel.materialRefs,curMeshObjs[i].getMaterialIndex(),i,oldObjectName,newObjectName);
 				changeReference(dataModel.vboObjectRefs,curMeshObjs[i].getVBOIndex(),i,oldObjectName,newObjectName);
 			}
@@ -257,18 +256,6 @@ public class DataHolder extends Observable {
 	}
 	
 	private void report(String str) {
-		for (int i=0;i<dataModel.materialRefs.size();i++) {
-			System.out.println("List "+i);
-			for (Reference curObj: dataModel.materialRefs.get(i)) {
-				System.out.println("name: "+curObj.name+" index: "+curObj.index+"\n");
-			}
-		}
-		for (int i=0;i<dataModel.vboObjectRefs.size();i++) {
-			System.out.println("List "+i);
-			for (Reference curObj: dataModel.vboObjectRefs.get(i)) {
-				System.out.println("name: "+curObj.name+" index: "+curObj.index+"\n");
-			}
-		}
 		this.setChanged();
 		this.notifyObservers(str);
 	}

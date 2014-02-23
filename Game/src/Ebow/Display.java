@@ -57,11 +57,17 @@ public class Display {
 		return graphicsLibrary.getDimensions();
 	}
 	
+	public WindowDimensions getWindowDimensions() {
+		return windowDimensions;
+	}
+	
 	public Display(GL3 gl,WindowDimensions windowDimensions) {
-		this.gl = gl;
 		this.windowDimensions = windowDimensions;
+		this.gl = gl;
 		// Load the texture and vbos
-		graphicsLibrary = new GraphicsLibrary(gl,"c:/Users/Jack/My Documents/Game/"+"EbowGraphics5.egf");
+		graphicsLibrary = new GraphicsLibrary(gl,"c:/Users/Jack/My Documents/Game/"+"EbowGraphics7.egf");
+		
+		windowDimensions.setEyeHeightFromWidth(graphicsLibrary.getDimensions().get("Ship").getX()*6);
 		// Set the active texture unit to texture unit 0
 		gl.glActiveTexture(GL3.GL_TEXTURE0);
 		//Vec3 ambientColor,Vec3 diffuseColor,Vec3 diffusePosition,float diffuseStrength,Vec3 eyeDirection
@@ -100,7 +106,12 @@ public class Display {
 	}
 	
 	public void tick() {
-//		renderObjects(backgroundObjects);
+	    float aspectWidth = windowDimensions.getHeight()*windowDimensions.getAspect();
+	    float xpos = (windowDimensions.getWidth()-aspectWidth)/2; 
+
+	    gl.glViewport(0,0,(int)windowDimensions.getWidth(), (int)windowDimensions.getHeight());
+		renderObjects(backgroundObjects);
+	    gl.glViewport((int)xpos,0,(int)aspectWidth, (int)windowDimensions.getHeight());
 		renderObjects(enemys);
 		renderObjects(players);
 		
@@ -147,11 +158,10 @@ public class Display {
 		
 		passLight(currentShader,lights.get("NaiveLight"));
 		
-		// Sort particles by z
+		// Sort particles by y
 		Collections.sort(particles);
 		
 		String currentTexture = "";
-		
 		for (Particle curParticle: particles) {
 			
 			MeshObject curObj = graphicsLibrary.getMeshObj(curParticle.getType())[0];
@@ -172,7 +182,7 @@ public class Display {
 			gl.glUniform3fv(currentShader.getLocation("material_Diffuse"),3,curMaterial.getDiffuse().getAsArray(),0);
 			gl.glUniform3fv(currentShader.getLocation("material_Specular"),3,curMaterial.getSpecular().getAsArray(),0);
 			gl.glUniform1f(currentShader.getLocation("material_Shininess"),curMaterial.GetSpecularWeight());
-			gl.glUniform4fv(currentShader.getLocation("object_Color"),3,new Vec4(curParticle.getColor(),curParticle.getAlpha()).getAsArray(),0);
+			gl.glUniform4fv(currentShader.getLocation("object_Color"),3,new Vec4(curParticle.getColor(),curParticle.getLife()).getAsArray(),0);
 			
 			// render the mesh (vertices/normals/texturecoords)
 			graphicsLibrary.getVBOObject(curObj.getVBOIndex()).renderVBO(gl,
@@ -232,6 +242,7 @@ public class Display {
 											break;
 				}
 			}
+			
 			
 			// if the texture is different to the current texture bind the texture
 			if (!(curMeshObject.getMeshObject().getTextureName().equals(currentTexture))) {

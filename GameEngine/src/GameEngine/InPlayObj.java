@@ -1,21 +1,23 @@
 package GameEngine;
+import VMQ.DLinkedList;
 import VMQ.Quaternion;
 import VMQ.Vec3;
 
-public abstract class InPlayObj extends GameObj implements Comparable<InPlayObj>{
+public abstract class InPlayObj extends GameObj{
 	private float banking;
 	private float speed;
 	private float rotSpeed;
 	
-	private float activationDistance;
-	
 	private float curDist;
-	private DLinkedList Movement = new DLinkedList();
+	private DLinkedList<Movement> movement = new DLinkedList<Movement>();
 	
 	private int health;
 	private int damage;
+	
+	private Vec3 explosionPosition = new Vec3();
+	private Vec3 explosionDimensions = new Vec3();
 
-	public InPlayObj(Vec3 position, float speed, float rotSpeed, float activationDistance,int health,int damage) {
+	public InPlayObj(Vec3 position, float speed, float rotSpeed,int health,int damage) {
 		super(position); 
 		this.banking = 0;
 		this.speed = speed;
@@ -23,7 +25,6 @@ public abstract class InPlayObj extends GameObj implements Comparable<InPlayObj>
 		this.curDist = 0f;
 		this.health = health;
 		this.damage = damage;
-		this.activationDistance = activationDistance;
 	}
 	
 	public void rotate(float deg,Vec3 vector) {
@@ -43,13 +44,29 @@ public abstract class InPlayObj extends GameObj implements Comparable<InPlayObj>
 	}
 	
 	protected void processMovement(float timeSinceLastTick) {
-		if (Movement.getSize()>0) { 
-			Movement castMove = (Movement)Movement.getHead().getData();
+		if (movement.length()>0) { 
+			Movement castMove = movement.getFirst();
 			if (castMove.move(this,timeSinceLastTick)) {
-				Movement.removeFirst();
+				movement.removeFirst();
 				curDist=0;
 			} 
 		}
+	}
+	
+	public void setExplosionPosition(Vec3 explosionPosition) {
+		this.explosionPosition = explosionPosition;
+	}
+	
+	public Vec3 getExplosionPosition() {
+		return this.explosionPosition;
+	}
+	
+	public void setExplosionDimensions(Vec3 explosionDimensions) {
+		this.explosionDimensions = explosionDimensions;
+	}
+	
+	public Vec3 getExplosionDimensions() {
+		return this.explosionDimensions;
 	}
 	
 	public float getCurDist() {
@@ -60,12 +77,20 @@ public abstract class InPlayObj extends GameObj implements Comparable<InPlayObj>
 		this.curDist = curDist;
 	}
 	
+	public void setMovement(DLinkedList<Movement> movement) {
+		this.movement = movement;
+	}		
+	
 	public void addMovement(Movement move) {
-		Movement.addLast(move);
+		movement.addLast(move);
+	}		
+	
+	public void clearMovement() {
+		movement.clear(); 
 	}
 	
 	public boolean isFinished() {
-		return (Movement.getSize()==0);
+		return (movement.length()==0);
 	}
 	
 	public boolean isAlive() {
@@ -140,26 +165,11 @@ public abstract class InPlayObj extends GameObj implements Comparable<InPlayObj>
 		}
 	}	
 	
-	public float getActivationDistance() {
-		return activationDistance;
-	}
-	
 	public abstract void tick(float timeSinceLastTick);
 	
-	public abstract Explosion getExplosion(Vec3 dimensions);
+	public abstract Explosion getExplosion();
 	
 	public abstract String getCategory();
 	
-	public abstract void handleCollision(InPlayObj objCollidingWith);
-	
-	@Override
-	public int compareTo(InPlayObj p) {
-		if (getActivationDistance()>p.getActivationDistance()) {
-			return 1;
-		} else if (getActivationDistance()<p.getActivationDistance()) {
-			return -1;
-		} else {
-			return 0;
-		}
-    }
+	public abstract void handleCollision(InPlayObj objCollidingWith, Vec3 myDimensions, Vec3 hisDimensions);
 }

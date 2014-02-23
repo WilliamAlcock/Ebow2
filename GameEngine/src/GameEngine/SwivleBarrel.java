@@ -9,7 +9,7 @@ public class SwivleBarrel extends Enemy implements Fires{
 	private Enemy parent;
 	
 	public SwivleBarrel(Vec3 position,float trackSpeed,InPlayObj toTrack,float rateOfFire,Enemy parent) {
-		super(position,0, trackSpeed,0,5,1);
+		super(position,0, trackSpeed,5,1);
 		this.parent = parent;
 		addMovement(new MovementTrack(toTrack));
 		LaserRound laser = new LaserRound(new Vec3(),60.0f);
@@ -30,6 +30,7 @@ public class SwivleBarrel extends Enemy implements Fires{
 		if (bulletGenerator.readyToFire()) {
 			bulletGenerator.setPosition(getPosition());
 //			bulletGenerator.setRotation(getRotation().copy());
+			bulletGenerator.clearMovement();
 			bulletGenerator.addMovement(new MovementLinear(zVec,60.0f));
 			fireList.add(bulletGenerator.generateBullet());
 		}		

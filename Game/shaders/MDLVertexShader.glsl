@@ -15,6 +15,6 @@ void main(void) {
 	vec4 v = vec4(position,1.0);
 	fPosition = vec3(u_MVMatrix * v);
 	fTextureCoords = textureCoords;
-	fNormal = vec3(u_MVMatrix * vec4(normal,0.0));
+	fNormal = normalize(vec3(u_MVMatrix * vec4(normal,0.0)));
 	gl_Position = u_MVPMatrix * v;   
 }

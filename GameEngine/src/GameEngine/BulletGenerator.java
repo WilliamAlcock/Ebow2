@@ -1,5 +1,6 @@
 package GameEngine;
 
+import VMQ.DLinkedList;
 import VMQ.Quaternion;
 import VMQ.Vec3;
 
@@ -8,7 +9,7 @@ public class BulletGenerator {
 	private float timeSinceLastFire;
 	private float rateOfFire;
 	private Bullet bullet;
-	private Movement movement;
+	private DLinkedList<Movement> movement;
 	private Vec3 position;
 	private Quaternion rotation;
 	private boolean rotate = false;
@@ -20,13 +21,14 @@ public class BulletGenerator {
 		this.rateOfFire = 1;										// default is 1 per second
 		this.bullet = bullet;
 		this.timeSinceLastFire = rateOfFire + 0.001f;
+		this.movement = new DLinkedList<Movement>();
 	}
 	
 	public Bullet generateBullet() {
 		if (readyToFire()) {
 			timeSinceLastFire = 0;
 			Bullet retBullet = bullet.copy(position);
-			retBullet.addMovement(movement);
+			retBullet.setMovement(movement);
 			if (rotate) retBullet.setRotation(rotation);
 			return retBullet;
 		}
@@ -42,9 +44,13 @@ public class BulletGenerator {
 		this.rotation = rotation;
 	}
 	
-	public void addMovement(Movement movement) {
-		this.movement = movement;
+	public void clearMovement() {
+		this.movement = new DLinkedList<Movement>();
 	}
+	
+	public void addMovement(Movement movement) {
+		this.movement.addLast(movement);
+	}		
 	
 	public void setPosition(Vec3 position) {
 		this.position = position;

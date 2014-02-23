@@ -5,8 +5,8 @@ public abstract class Enemy extends InPlayObj{
 	
 	private int points;
 	
-	public Enemy(Vec3 position, float speed, float rotSpeed,float activationDistance, int health,int damage) {
-		super(position, speed, rotSpeed, activationDistance,health,damage);
+	public Enemy(Vec3 position, float speed, float rotSpeed, int health,int damage) {
+		super(position, speed, rotSpeed,health,damage);
 		this.points = health*5;
 	}
 	
@@ -15,8 +15,8 @@ public abstract class Enemy extends InPlayObj{
 	}
 	
 	@Override
-	public Explosion getExplosion(Vec3 dimensions) {
-		return new Explosion(getPosition(),15,dimensions,true,true,true,true,true,true);
+	public Explosion getExplosion() {
+		return new Explosion(getExplosionPosition(),15,getExplosionDimensions(),true,true,true,true,true,true);
 	}
 	
 	@Override
@@ -30,9 +30,22 @@ public abstract class Enemy extends InPlayObj{
 	}
 	
 	@Override
-	public void handleCollision(InPlayObj objCollidingWith) {
+	public void handleCollision(InPlayObj objCollidingWith,Vec3 myDimensions,Vec3 hisDimensions) {
 		objCollidingWith.decHealth(getDamage());
 		this.decHealth(objCollidingWith.getDamage());
+		if (objCollidingWith.getHealth()<=0) {
+			if (objCollidingWith instanceof Bullet) {
+				objCollidingWith.setExplosionPosition(this.getPosition());
+				objCollidingWith.setExplosionDimensions(myDimensions);
+			} else {
+				objCollidingWith.setExplosionPosition(objCollidingWith.getPosition());
+				objCollidingWith.setExplosionDimensions(hisDimensions);
+			}
+		}
+		if (getHealth()<=0) {
+			
+		}
+		
 	}
 	
 	@Override

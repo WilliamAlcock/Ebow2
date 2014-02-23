@@ -5,8 +5,8 @@ public class SwivleShip extends Enemy implements hasComponents{
 
 	private SwivleBarrel swivleBarrel;
 	
-	public SwivleShip(Vec3 position, float speed,float activationDistance, InPlayObj toTrack, float trackSpeed) {
-		super(position, speed, 0, activationDistance, 5,1);
+	public SwivleShip(Vec3 position, float speed, InPlayObj toTrack, float trackSpeed) {
+		super(position, speed, 0, 5,1);
 		this.swivleBarrel = new SwivleBarrel(position,trackSpeed,toTrack,1,this);
 	}
 	

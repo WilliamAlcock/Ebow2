@@ -3,8 +3,8 @@ import VMQ.Vec3;
 
 public class EnemyShip extends Enemy{
 	
-	public EnemyShip(Vec3 position,float speed,float rotSpeed,float activationDistance) {
-		super(position, speed, rotSpeed,activationDistance,  5,1); 	//health 5 damage 1
+	public EnemyShip(Vec3 position,float speed,float rotSpeed) {
+		super(position, speed, rotSpeed,  5,1); 	//health 5 damage 1
 	}
 
 	// firing code to adapt just incase i decide i want it to fire

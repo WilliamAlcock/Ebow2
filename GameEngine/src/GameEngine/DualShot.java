@@ -10,7 +10,7 @@ public class DualShot extends Weapon implements Fires{
 	private BulletGenerator bulletGenerator2;
 	
 	public DualShot() {
-		super(new Vec3(), 0, 0, new Vec3(0,0,6), 20, 1);
+		super(new Vec3(), 0, 0, new Vec3(0,0,-5.3f), 20, 1);
 		setFollowRotation(true);
 		Bullet myBullet = new LaserRectangle(new Vec3(),100);
 		bulletGenerator1 = new BulletGenerator(myBullet);
@@ -28,12 +28,14 @@ public class DualShot extends Weapon implements Fires{
 		bulletGenerator2.tick(timeSinceLastTick);
 		if (bulletGenerator1.readyToFire()) {
 			bulletGenerator1.setPosition(new Vec3(getPosition().getX()-1.0f,getPosition().getY(),getPosition().getZ()+5.0f));
-			bulletGenerator1.addMovement(new MovementLinear(getRotation().GetZVector(),60.0f));
+			bulletGenerator1.clearMovement();
+			bulletGenerator1.addMovement(new MovementLinear(getRotation().GetZVector().multiply(-1),60.0f));
 			fireList.add(bulletGenerator1.generateBullet());
 		}
 		if (bulletGenerator2.readyToFire()) {
 			bulletGenerator2.setPosition(new Vec3(getPosition().getX()+1.0f,getPosition().getY(),getPosition().getZ()+5.0f));
-			bulletGenerator2.addMovement(new MovementLinear(getRotation().GetZVector(),60.0f));
+			bulletGenerator2.clearMovement();
+			bulletGenerator2.addMovement(new MovementLinear(getRotation().GetZVector().multiply(-1),60.0f));
 			fireList.add(bulletGenerator2.generateBullet());
 		}
 	}

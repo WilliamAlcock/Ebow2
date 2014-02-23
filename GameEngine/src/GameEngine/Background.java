@@ -10,9 +10,9 @@ public class Background {
 	private StarMachine starMachine;
 	private LinkedList<GameObj> backgroundObjects = new LinkedList<GameObj>();
 	
-	public Background(float wallpaperWidth,float wallpaperLength) {
-		this.wallpaper = new Wallpaper(new Vec3(0,0,-99),new Vec3(0,-1,0),wallpaperLength,backgroundObjects);
-		this.starMachine = new StarMachine(new Vec3(wallpaperWidth,wallpaperLength/1,-90),new Vec3(0,-2,0),2,20,wallpaperLength*2,100,backgroundObjects);
+	public Background(float wallpaperWidth,float wallpaperLength,Vec3 screenCenter) {
+		this.wallpaper = new Wallpaper(new Vec3(0,-10,0),screenCenter,wallpaperLength,backgroundObjects); 
+		this.starMachine = new StarMachine(new Vec3(wallpaperWidth,-5,-wallpaperLength),screenCenter,new Vec3(0,0,2),2,20,wallpaperLength*2,100,backgroundObjects);
 	}
 	
 	public void tick(float timeSinceLastTick) {

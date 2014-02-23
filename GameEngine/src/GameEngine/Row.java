@@ -20,9 +20,9 @@ public class Row {
 	
 	public DLinkedList<InPlayObj> get(int index) {
 		if (index<0) {
-			throw new IndexOutOfBoundsException("Index cannot be negative");
+			throw new IndexOutOfBoundsException("Index "+index+" cannot be negative");
 		} else if (index>=length) {
-			throw new IndexOutOfBoundsException("Index to large");
+			throw new IndexOutOfBoundsException("Index "+index+" to large");
 		} else {
 			return rowData.get(index);
 		}

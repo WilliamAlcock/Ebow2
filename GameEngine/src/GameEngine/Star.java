@@ -9,6 +9,7 @@ public class Star extends BackgroundObjects{
 	
 	public Star(Vec3 position,Vec3 direction,float speed,Vec3 scale) {
 		super(position);
+		setScale(scale);
 		this.speed = speed;
 		this.direction = direction.normalize();
 		this.distanceTravelled = 0;
@@ -16,9 +17,8 @@ public class Star extends BackgroundObjects{
 	
 	public void tick(float timeSinceLastTick) {
 		float distance = timeSinceLastTick*speed;
-		Vec3 newPosition = getPosition().add(direction.multiply(distance));
 		distanceTravelled = distanceTravelled + distance;
-		setPosition(newPosition);
+		setPosition(getPosition().add(direction.multiply(distance)));
 	}
 	
 	public float getDistanceTravelled() {

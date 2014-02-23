@@ -5,8 +5,8 @@ public class PowerUpWeapon extends PowerUp{
 
 	private Weapon weapon;
 	
-	public PowerUpWeapon(Vec3 position, float speed,float activationDistance,Weapon weapon) {
-		super(position, speed, activationDistance);
+	public PowerUpWeapon(Vec3 position, float speed,Weapon weapon) {
+		super(position, speed);
 		this.weapon = weapon;
 	}
 

@@ -33,7 +33,7 @@ public class LevelEditorGUI extends JFrame{
 	private LevelHolder levelHolder;
 	private static final int CANVAS_WIDTH = 600;  				// width of the drawable
 	private static final int CANVAS_HEIGHT = 600;				// height of the drawable
-	private WindowDimensions windowDimensions = new WindowDimensions(CANVAS_WIDTH,CANVAS_HEIGHT,45,1,100,new Vec3(0,80,0),new Vec3(0,0,0),new Vec3(0,0,1));
+	private WindowDimensions windowDimensions = new WindowDimensions(CANVAS_WIDTH,CANVAS_HEIGHT,4.0f/3.0f,45,1,100,new Vec3(0,80,0),new Vec3(0,0,0),new Vec3(0,0,1));
 
 	public LevelEditorGUI () {
 		super("LevelEditor");

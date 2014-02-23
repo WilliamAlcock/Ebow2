@@ -11,7 +11,7 @@ public class GunBarrel extends Enemy implements Fires{
 	
 	public GunBarrel (Vec3 position, float rotSpeed,InPlayObj toTrack,Vec3 offset,float rateOfFire) {
 		// offset the position of the barrel by -3.5f so it appears at the correct end of the turret		
-		super(position,0.0f,rotSpeed, 0.0f, 5,1); 	//health 5 damage 1
+		super(position,0.0f,rotSpeed, 5,1); 	//health 5 damage 1
 		this.addMovement(new MovementNone());
 		this.parent = toTrack;
 		Bullet laser = new LaserRectangle(new Vec3(),60.0f);
@@ -23,6 +23,7 @@ public class GunBarrel extends Enemy implements Fires{
 
 	@Override
 	public void tick(float timeSinceLastTick) {
+		track();
 		super.tick(timeSinceLastTick);
 		rotateTimeBased(timeSinceLastTick,getRotation().GetZVector().normalize().round(4));	
 	}
@@ -32,10 +33,11 @@ public class GunBarrel extends Enemy implements Fires{
 		bulletGenerator.tick(timeSinceLastTick);
 		if (bulletGenerator.readyToFire()) {
 			bulletGenerator.setPosition(getPosition());
-			bulletGenerator.addMovement(new MovementLinear(getRotation().GetZVector().normalize().round(4),60.0f));
-			bulletGenerator.setRotation(tracker.getLastTrackAngle());
+			bulletGenerator.clearMovement();
+			bulletGenerator.addMovement(new MovementLinear(getRotation().GetZVector().normalize().round(4),120.0f));
+			bulletGenerator.setRotation(parent.getRotation().copy());
 			fireList.add(bulletGenerator.generateBullet());
-		}
+		}			
 	}					
 	
 	@Override

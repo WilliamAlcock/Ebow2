@@ -6,7 +6,7 @@ public abstract class PlayerPart extends InPlayObj{
 	private Player player;
 	
 	public PlayerPart(Vec3 position, float speed, float rotSpeed,int health,int damage) {
-		super(position,speed,rotSpeed,0,health,damage);
+		super(position,speed,rotSpeed,health,damage);
 	}
 	
 	public void setPlayer(Player player) {

@@ -7,17 +7,21 @@ public class StarMachine {
 
 	private LinkedList<GameObj> backgroundObjects;
 	private Vec3 startPosition;
+	private Vec3 screenCenter;
 	private Vec3 direction;
 	private int numberOfStars;
 	private float minSpeed;
 	private float maxSpeed;
 	private float distanceToTravel;
 	
-	public StarMachine(Vec3 startPosition,Vec3 direction,float minSpeed,float maxSpeed,float distanceToTravel,int numberOfStars,LinkedList<GameObj> backgroundObjects) {
+	public StarMachine(Vec3 startPosition,Vec3 screenCenter,Vec3 direction,float minSpeed,float maxSpeed,float distanceToTravel,int numberOfStars,LinkedList<GameObj> backgroundObjects) {
 		this.startPosition = startPosition;
+		this.screenCenter = screenCenter;
+		
 		this.direction = direction;
 		this.minSpeed = minSpeed;
 		this.maxSpeed = maxSpeed;
+		
 		this.distanceToTravel = distanceToTravel;
 		this.backgroundObjects = backgroundObjects;
 		addStar(numberOfStars,true);
@@ -45,17 +49,19 @@ public class StarMachine {
 		if (removals>0) addStar(removals,false);
 	}
 	
-	public void addStar(int numberOfStars,boolean randomy) {
+	public void addStar(int numberOfStars,boolean randomZ) {
 		for (int i=0;i<numberOfStars;i++) {
+			// random speed between max and min
 			int speed = (int)(((maxSpeed-minSpeed)*Math.random())+minSpeed);
+			// random number between -startposition and startposition
 			float xpos = (float) ((startPosition.getX()*2*Math.random())-startPosition.getX());
-			float ypos;
-			if (randomy) {
-				ypos = (float) ((startPosition.getY()*2*Math.random())-startPosition.getY());
+			float zpos;
+			if (randomZ) {
+				zpos = (float) ((startPosition.getZ()*2*Math.random())-startPosition.getZ());
 			} else {
-				ypos = startPosition.getY();
+				zpos = startPosition.getZ();
 			}
-			backgroundObjects.add(new Star(new Vec3(xpos,ypos,startPosition.getZ()),direction,speed,new Vec3(0.2f,0.2f,0.2f)));			
+			backgroundObjects.add(new Star(new Vec3(xpos,startPosition.getY(),screenCenter.getZ()+zpos),direction,speed,new Vec3(0.5f,0.5f,0.5f)));			
 		}
 		this.numberOfStars += numberOfStars;
 	}

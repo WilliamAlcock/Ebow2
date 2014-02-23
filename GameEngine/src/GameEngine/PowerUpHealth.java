@@ -5,8 +5,8 @@ public class PowerUpHealth extends PowerUp{
 
 	private int strength;
 	
-	public PowerUpHealth(Vec3 position, float speed, float activationDistance,int strength) {
-		super(position, speed, activationDistance);
+	public PowerUpHealth(Vec3 position, float speed,int strength) {
+		super(position, speed);
 		this.strength = strength;
 	}
 	

@@ -13,9 +13,11 @@ public class Player {
 	private ArrayList<Weapon> weapons = new ArrayList<Weapon>();
 	private Ship ship;
 	private Engine leftRearEngine,rightRearEngine,leftFrontEngine,rightFrontEngine;
-	private Vec3 scrollingVector;
 	
 	private WindowDimensions windowDimensions;
+	private float xMax;
+	private float yMax; 
+	private float scrollingSpeed;
 	
 	private ParticleEngine particles;
 	private HashMap<String,Vec3> dimensions;
@@ -24,17 +26,24 @@ public class Player {
 	private float reversePower = 2f;
 	private float rateOfFire = 0.2f;
 	
-	public Player(Vec3 position,float speed,WindowDimensions windowDimensions,HashMap<String,Vec3> dimensions,ParticleEngine particles,Vec3 scrollingVector) {
-		this.scrollingVector = scrollingVector;
+	public Player(Vec3 position,float speed,WindowDimensions windowDimensions,HashMap<String,Vec3> dimensions,ParticleEngine particles,float scrollingSpeed) {
 		ship = new Ship(position,speed,this);
 		ship.setRateOfFire(rateOfFire);
+		
 		this.windowDimensions = windowDimensions;
+		xMax = windowDimensions.getMaxXPos(windowDimensions.getEye().getY())-dimensions.get("Ship").getX();
+		yMax = windowDimensions.getMaxYPos(windowDimensions.getEye().getY())-dimensions.get("Ship").getZ();
+		
 		this.dimensions = dimensions;
 		this.particles = particles;
-		leftRearEngine = new Engine(ship.getPosition(),new Vec3(-1.3f,0,-5f),new Vec3(0,0,-1),30,1,10);
-		rightRearEngine = new Engine(ship.getPosition(),new Vec3(1.3f,0,-5f),new Vec3(0,0,-1),30,1,10);
-		leftFrontEngine = new Engine(ship.getPosition(),new Vec3(1.3f,0,1f),new Vec3(1,0,1),30,0,10);
-		rightFrontEngine = new Engine(ship.getPosition(),new Vec3(-1.3f,0,1f),new Vec3(-1,0,1),30,0,10);
+		this.scrollingSpeed = scrollingSpeed;
+		
+		leftRearEngine = new Engine(ship,new Vec3(1.3f,0,5f),new Vec3(0,0,1),30,1,10);
+		rightRearEngine = new Engine(ship,new Vec3(-1.3f,0,5f),new Vec3(0,0,1),30,1,10);
+				
+		leftFrontEngine = new Engine(ship,new Vec3(-1.6f,0,-1.2f),new Vec3(-1,0,-1),30,0,10);
+		rightFrontEngine = new Engine(ship,new Vec3(1.6f,0,-1.2f),new Vec3(1,0,-1),30,0,10);
+		
 		myObjects.add(ship);
 	}
 	
@@ -109,21 +118,13 @@ public class Player {
 		}
 		// right
 		if (nextDirection[2]) {
-			ship.bankRight(timeSinceLastTick);
-			rightFrontEngine.decreasePower(2);
-			rightFrontEngine.off();
+			ship.bankLeft(timeSinceLastTick);
 			nextDirection[2] = false;
-		} else {
-			rightFrontEngine.on();
 		}
 		// left
 		if (nextDirection[3]) {
-			ship.bankLeft(timeSinceLastTick);
-			leftFrontEngine.decreasePower(2);
-			leftFrontEngine.off();
+			ship.bankRight(timeSinceLastTick);
 			nextDirection[3] = false;
-		} else {
-			leftFrontEngine.on();
 		}
 		// neither left nor right
 		if (nextDirection[4]) {
@@ -146,13 +147,22 @@ public class Player {
 		}
 		adjustPosition(timeSinceLastTick);
 		
+		// Might be able to change this 
+		leftFrontEngine.setGravity(ship.getRotation().GetXVector().multiply(-1).add(ship.getRotation().GetYVector().multiply(-1)));
+		rightFrontEngine.setGravity(ship.getRotation().GetXVector().add(ship.getRotation().GetYVector().multiply(-1)));
+		leftRearEngine.setGravity(ship.getRotation().GetZVector());
+		rightRearEngine.setGravity(ship.getRotation().GetZVector());
+		
 		Iterator<InPlayObj> it = myObjects.iterator();
 		while (it.hasNext()) {
 			InPlayObj curObj = it.next();
 			curObj.tick(timeSinceLastTick);
-			if (curObj.isFinished()) {
+			if (curObj.isFinished() || Math.abs(windowDimensions.getCenter().getZ()-curObj.getPosition().getZ())>yMax) {
 				it.remove();
 				if (curObj instanceof Weapon) weapons.remove(curObj);
+				if (curObj.getType().equals("DualShot")) {
+					ship.setFires(true);
+				}
 			} else if (!curObj.isAlive()) {
 				particles.add(curObj.getExplosion(dimensions.get(curObj.getType())));					
 				it.remove();
@@ -174,27 +184,22 @@ public class Player {
 	
 	// Engines
 	private void adjustPosition(float timeSinceLastTick) {
-		float maxX = windowDimensions.getMaxXPos(-windowDimensions.getEye().getY())-dimensions.get("Ship").getX();
-		float maxY = windowDimensions.getMaxYPos(-windowDimensions.getEye().getY())-dimensions.get("Ship").getZ();
-		Vec3 newPos = ship.getPosition().add(scrollingVector.multiply(timeSinceLastTick));
-		ship.getPosition().setX(newPos.getX());
-		ship.getPosition().setY(newPos.getY());
-		ship.getPosition().setZ(newPos.getZ());
-		if (ship.getPosition().getX()<maxX) {
-			ship.getPosition().setX(maxX);
-		} else if (ship.getPosition().getX()>-maxX) {
-			ship.getPosition().setX(-maxX);
+		float newPos = ship.getPosition().getZ()-(scrollingSpeed*timeSinceLastTick);
+		ship.getPosition().setZ(newPos);
+		if (ship.getPosition().getX()>xMax) {
+			ship.getPosition().setX(xMax);
+		} else if (ship.getPosition().getX()<-xMax) {
+			ship.getPosition().setX(-xMax);
 		}
-		if (ship.getPosition().getZ()<(maxY+windowDimensions.getEye().getZ())) {
-			ship.getPosition().setZ((maxY+windowDimensions.getEye().getZ()));
+		if (ship.getPosition().getZ()>(yMax+windowDimensions.getEye().getZ())) {
+			ship.getPosition().setZ((yMax+windowDimensions.getEye().getZ()));
 //			reverseEngine(timeSinceLastTick);
 		} else {
 //			rechargeEngine(timeSinceLastTick);
-			if (ship.getPosition().getZ()>-(maxY+windowDimensions.getEye().getZ())) {
-				ship.getPosition().setZ(-(maxY+windowDimensions.getEye().getZ()));
+			if (ship.getPosition().getZ()<(-yMax+windowDimensions.getEye().getZ())) {
+				ship.getPosition().setZ(-yMax+windowDimensions.getEye().getZ());
 			}
-		}
-		System.out.println(ship.getPosition()+" - Max - "+maxX+","+maxY);
+		}		
 	}
 	
 	// Reverse Engines

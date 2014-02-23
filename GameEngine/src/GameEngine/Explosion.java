@@ -64,6 +64,7 @@ public class Explosion implements ParticleGenerator {
 			}
 		}
 		if (roundSparks) {
+			// Round Sparks
 			for (int i=0;i<numOfParticles;i++) {
 				float xpos = (float)((radius.getX()*2f)*Math.random())-radius.getX();
 				float ypos = (float)((radius.getY()*2f)*Math.random())-radius.getY();

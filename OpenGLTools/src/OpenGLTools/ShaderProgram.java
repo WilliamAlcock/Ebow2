@@ -60,7 +60,6 @@ public class ShaderProgram {
 	    if (intBuffer.get(0) != 1) {
 	        gl.glGetShaderiv(shader, GL3.GL_INFO_LOG_LENGTH, intBuffer);
 	        int size = intBuffer.get(0);
-	        System.err.println("Shader error: ");
 	        if (size > 0) {
 	            ByteBuffer byteBuffer = ByteBuffer.allocate(size);
 	            gl.glGetShaderInfoLog(shader, size, intBuffer, byteBuffer);
@@ -68,8 +67,9 @@ public class ShaderProgram {
 	                System.err.print((char) b);
 	            }
 	        } else {
-	            System.out.println("Unknown");
+	            System.err.println("Unknown");
 	        }
+//	        System.err.print("\n");
 	    }
 	}
 	
@@ -88,7 +88,7 @@ public class ShaderProgram {
 	                System.err.print((char) b);
 	            }
 	        } else {
-	            System.out.println("Unknown");
+	            System.err.println("Unknown");
 	        }
 	    }
 	}
@@ -133,7 +133,7 @@ public class ShaderProgram {
 		} catch(IOException e) {
 			System.err.println("A problem was encountered reading "+filename);
 		}
-		System.out.println(fileContent);
+//		System.out.println(fileContent);
 		return new String[] {fileContent};
 	}
 

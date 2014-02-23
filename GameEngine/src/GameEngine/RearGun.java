@@ -8,7 +8,7 @@ public class RearGun extends Weapon implements Fires{
 	private BulletGenerator bulletGenerator;
 	
 	public RearGun() {
-		super(new Vec3(), 0, 100, new Vec3(0,0,-8),20, 1);
+		super(new Vec3(), 0, 100, new Vec3(0,0,8),20, 1);
 		bulletGenerator = new BulletGenerator(new LaserRound(new Vec3(),100));
 	}
 
@@ -21,7 +21,8 @@ public class RearGun extends Weapon implements Fires{
 	public void fireWeapon(float timeSinceLastTick,List<InPlayObj> fireList) {
 		if (bulletGenerator.readyToFire()) {
 			bulletGenerator.setPosition(getPosition().copy());
-			bulletGenerator.addMovement(new MovementLinear(getRotation().GetZVector().multiply(-1),60.0f));
+			bulletGenerator.clearMovement();
+			bulletGenerator.addMovement(new MovementLinear(getRotation().GetZVector(),60.0f));
 			fireList.add(bulletGenerator.generateBullet());
 		}
 	}

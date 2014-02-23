@@ -46,8 +46,6 @@ public class ObjFileReader {
 		String curline = reader.readLine().substring(7);								// ReadLine and cut first 6 chars off to leave the material library filename
 		mtlFileReader.readFile(path.getParent()+"/"+curline);							// Open the material file
 		
-		System.out.println(mtlFileReader.size());
-		
 		xMax = 0;
 		xMin = 0;
 		yMax = 0;
@@ -86,8 +84,6 @@ public class ObjFileReader {
 			normals.add(new Vec3(Float.parseFloat(strverts[0]),Float.parseFloat(strverts[1]),Float.parseFloat(strverts[2])));	
 			curline = reader.readLine();
 		}
-		
-		System.out.println("Read all vertices,normals,textures");
 		
 		for (int i=0;i<mtlFileReader.size();i++) {
 			// Deals with faces object header info

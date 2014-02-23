@@ -5,9 +5,10 @@ public class MissileLauncher extends Weapon implements hasComponents{
 
 	private MissileLauncherBarrel missileLauncherBarrel;
 	
-	public MissileLauncher(CollisionDetector collider) {
-		super(new Vec3(), 0, 100, new Vec3(3.98473f,-0.98575f,0),20, 1);
-		this.missileLauncherBarrel = new MissileLauncherBarrel(collider); 
+	public MissileLauncher(Level level) {
+		super(new Vec3(), 0, 100, new Vec3(-4.5f,-0.4f,0),20, 1);
+		this.setFollowRotation(true);
+		this.missileLauncherBarrel = new MissileLauncherBarrel(level); 
 	}
 
 	@Override

@@ -10,54 +10,59 @@ public class GameEngine {
 	private Player player1;												// Player
 	
 	private Level level;												// The level
-	 
+	
+	private WindowDimensions windowDimensions;
 	private CollisionDetector collider;									// Collision detector
 	private Background background;										// Background
-	private LiveEnemys liveEnemys;										// Live enemys on display
 	private ParticleEngine particles;									// Explosions etc
 	private HUD hUD;													// Head up display
 	
 	public GameEngine(HashMap<String,Vec3> dimensions,WindowDimensions windowDimensions) {
+		this.windowDimensions = windowDimensions;
 		gameClock = new Clock();
+		// this will be loaded from file eventually
+		level = new Level(60,dimensions.get("Ship").getX()*2.0f,dimensions.get("Ship").getZ()*2.0f,5.0f,
+				windowDimensions.getMaxXPos(windowDimensions.getEye().getY())*2,windowDimensions.getMaxYPos(windowDimensions.getEye().getY())*2);
+		
+		background = new Background(dimensions.get("Wallpaper").getX(),dimensions.get("Wallpaper").getZ(),windowDimensions.getEye());
+		hUD = new HUD(windowDimensions,dimensions);
+		
+		// rows,columns,boxWidth,boxHeight,speed - this level will be loaded from synchronized file
+
 		particles = new ParticleEngine();
-		Vec3 scrollingVector = new Vec3(0,0,0.05f);
-		player1 = new Player(new Vec3(0.0f, 18.0f, 0.0f),25.0f,windowDimensions,dimensions,particles,scrollingVector);
+		player1 = new Player(new Vec3(0.0f, 0.0f, 0.0f),25.0f,windowDimensions,dimensions,particles,level.getSpeed());
 		// add the ships engines to the particle engine
 		for (ParticleGenerator curEngine: player1.getEngines()) {
 			particles.add(curEngine);
 		}
-		collider = new CollisionDetector(windowDimensions,dimensions,player1);
-		level = new Level(player1,collider,windowDimensions,scrollingVector);
-		background = new Background(dimensions.get("Wallpaper").getX(),dimensions.get("Wallpaper").getY());
-		hUD = new HUD(windowDimensions,dimensions);
-		windowDimensions.addObserver(hUD);
-		windowDimensions.addObserver(collider);
-		player1.getShip().addObserver(hUD);
-		liveEnemys = new LiveEnemys(collider,hUD,particles,dimensions);
+		// dimensions,player1,level
+		collider = new CollisionDetector(dimensions,player1,level);
+		
+//		windowDimensions.addObserver(hUD);
+//		player1.getShip().addObserver(hUD);
+		
+		level.build(particles, hUD, windowDimensions,player1);
 	}
 	
 	public boolean tick() {
 		gameClock.tick();
-		player1.tick(gameClock.getTimeSinceLastTick());
+		windowDimensions.getEye().setZ(windowDimensions.getEye().getZ()-(gameClock.getTimeSinceLastTick()*level.getSpeed()));
+		windowDimensions.getCenter().setZ(windowDimensions.getCenter().getZ()-(gameClock.getTimeSinceLastTick()*level.getSpeed()));
+		windowDimensions.setViewMatrix();
 		background.tick(gameClock.getTimeSinceLastTick());
-		
-		if (level.tick(gameClock.getTimeSinceLastTick())) {
-			for (InPlayObj curObj: level.getEnemys()) {
-				liveEnemys.add(curObj);
-			}
-		}
-		
-		liveEnemys.tick(gameClock.getTimeSinceLastTick());
+		level.tick(gameClock.getTimeSinceLastTick());
+		player1.tick(gameClock.getTimeSinceLastTick());
 		particles.tick(gameClock.getTimeSinceLastTick());
 		collider.tick();
-		return hUD.tick(gameClock.getTimeSinceLastTick());
+		return true;				
+//				hUD.tick(gameClock.getTimeSinceLastTick());
 	}
 	
 	/*
 	 * returns a list of all the enemy Objects
 	 */
 	public List<InPlayObj> getEnemysToDisplay() {
-		return liveEnemys.getObjects();
+		return level.getVisibleObjects();
 	}
 	
 	/*
@@ -84,9 +89,9 @@ public class GameEngine {
 	/*
 	 * returns a list off all the HUD Objects
 	 */
-	public List<GameObj> getHUDObjects() {
+/*	public List<GameObj> getHUDObjects() {
 		return hUD.getObjects();
-	}
+	}	*/
 	
 	public void setPlayerMove(int direction) {
 		player1.setNextMove(direction);

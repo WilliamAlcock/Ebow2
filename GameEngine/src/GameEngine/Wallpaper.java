@@ -4,37 +4,24 @@ import java.util.LinkedList;
 
 public class Wallpaper {
 
-	private Vec3 position;
-	private Vec3 direction;
+	private Vec3 screenCenter;
 	private float length;
-	private float distanceBeforeFlip;
 	private WallpaperPane bottomPane;
 	private WallpaperPane topPane;
 	
-	public Wallpaper(Vec3 position,Vec3 direction,float length,LinkedList<GameObj> backgroundObjects) {
-		this.position = position;
-		this.direction = direction;
+	public Wallpaper(Vec3 position,Vec3 screenCenter,float length,LinkedList<GameObj> backgroundObjects) {
+		this.screenCenter = screenCenter;
 		this.length = length;
-		this.distanceBeforeFlip = length*2;
 		bottomPane = new WallpaperPane(position);		
-		topPane = new WallpaperPane(new Vec3(position.getX(),position.getY()+length*2,position.getZ()));
+		topPane = new WallpaperPane(new Vec3(position.getX(),position.getY(),position.getZ()-(length*2)));
 		backgroundObjects.add(bottomPane);
 		backgroundObjects.add(topPane);
 	}
 	
 	public void tick(float timeSinceLastTick) {
-		Vec3 newPosition = bottomPane.getPosition().add(direction.multiply(timeSinceLastTick));
-		if (timeSinceLastTick>0) {
-			distanceBeforeFlip = distanceBeforeFlip - bottomPane.getPosition().sub(newPosition).getMagnitude();
-		} else {
-			distanceBeforeFlip = distanceBeforeFlip + bottomPane.getPosition().sub(newPosition).getMagnitude();
+		if ((screenCenter.getZ()+(length*2))<bottomPane.getPosition().getZ()) {
+			bottomPane.getPosition().setZ(topPane.getPosition().getZ());			
+			topPane.getPosition().setZ(bottomPane.getPosition().getZ()-(length*2));
 		}
-		if (distanceBeforeFlip<0) {
-			distanceBeforeFlip = length*2;				
-			bottomPane.setPosition(this.position);
-		} else {
-			bottomPane.setPosition(newPosition);
-		}
-		topPane.setPosition(new Vec3(bottomPane.getPosition().getX(),bottomPane.getPosition().getY()+length*2,bottomPane.getPosition().getZ()));
 	}
 }

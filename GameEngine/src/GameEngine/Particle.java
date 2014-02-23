@@ -69,10 +69,6 @@ public abstract class Particle extends GameObj implements Comparable<Particle>{
 	
 	public void setGravity(Vec3 gravity) {
 		this.gravity = gravity;
-	}	
-	
-	public float getAlpha() {
-		return getLife();
 	}
 	
 	public void move(float timeSinceLastTick) {
@@ -85,7 +81,6 @@ public abstract class Particle extends GameObj implements Comparable<Particle>{
 		// Slow Down
 		float slowDown = (getSlowDown()*timeSinceLastTick)/1000f;
 		inc = inc.sub(new Vec3(slowDown,slowDown,slowDown));
-		
 		setPosition(getPosition().add(inc));
 		
 		setLife(getLife() - (fade*timeSinceLastTick));
@@ -99,12 +94,14 @@ public abstract class Particle extends GameObj implements Comparable<Particle>{
 	}
 	
 	public int compareTo(Particle p) {
-		if (getPosition().getZ()>p.getPosition().getZ()) {
-			return 1;
-		} else if (getPosition().getZ()<p.getPosition().getZ()) {
-			return -1;
-		} else {
+		if (this == p) {
 			return 0;
 		}
+		if (this.getPosition().getY()>p.getPosition().getY()) {
+			return 1;
+		} else if (this.getPosition().getY()<p.getPosition().getY()) {
+			return -1;
+		}
+		return 0;
     }
 }

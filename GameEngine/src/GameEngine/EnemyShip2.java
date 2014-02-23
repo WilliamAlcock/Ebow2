@@ -7,8 +7,8 @@ public class EnemyShip2 extends Enemy implements hasComponents{
 	private GunBarrel barrel1;
 	private GunBarrel barrel2;
 	
-	public EnemyShip2(Vec3 position, float speed,float rotSpeed, float activationDistance) {
-		super(position, speed, rotSpeed, activationDistance,5,1); 	//health 5 damage 1
+	public EnemyShip2(Vec3 position, float speed,float rotSpeed) {
+		super(position, speed, rotSpeed, 25,1); 	//health 5 damage 1
 		this.barrel1 = new GunBarrel(position,150.0f,this,new Vec3(2.25f,0.8f,2.4f),1);
 		this.barrel2 = new GunBarrel(position,-150.0f,this,new Vec3(-2.25f,0.8f,2.4f),1);
 		barrel1.getScale().setX(0.4f);

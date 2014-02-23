@@ -19,9 +19,7 @@ public class TextureLibrary {
 	HashMap<String,Texture> textures = new HashMap<String,Texture>();
 	
 	public TextureLibrary(GL3 gl,Set<String> textureNames) {
-		System.out.println("Number of Textures = "+textureNames.size());
 		for (String curString: textureNames) {
-			System.out.println("Adding texture "+curString);
 			addTexture(gl,curString);
 		}
 	}
@@ -55,8 +53,6 @@ public class TextureLibrary {
 		newTexture.setTexParameteri(gl,GL3.GL_TEXTURE_WRAP_T, GL3.GL_REPEAT);
 		newTexture.setTexParameteri(gl,GL3.GL_TEXTURE_MAG_FILTER, GL3.GL_LINEAR);
 		newTexture.setTexParameteri(gl,GL3.GL_TEXTURE_MIN_FILTER, GL3.GL_LINEAR_MIPMAP_LINEAR);
-		System.out.println("Must flip: "+newTexture.getMustFlipVertically());
 	    return newTexture;
 	}		
-
 }

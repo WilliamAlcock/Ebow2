@@ -3,20 +3,18 @@ import VMQ.Vec3;
 
 public class JetFire extends Particle{
 
-	private Vec3 shipPosition;
+	private InPlayObj ship;
 	private Vec3 initialOffset;
 	private float initialSpeed;
-	private MySwitch isOn;
 	private MySwitch killed;
 	
 	private Vec3 offset;
 	
-	public JetFire(Vec3 shipPosition,Vec3 offset,Vec3 gravity,float speed,MySwitch isOn,MySwitch killed) {
-		super(shipPosition.add(offset));
-		this.isOn = isOn;
+	public JetFire(InPlayObj ship,Vec3 offset,Vec3 gravity,float speed,MySwitch killed) {
+		super(ship.getPosition().add(offset));
 		this.killed = killed; 
 		this.initialOffset = offset;
-		this.shipPosition = shipPosition;
+		this.ship = ship;
 		this.initialSpeed = speed;
 		// Set Gravity 
 		setGravity(gravity);
@@ -30,7 +28,8 @@ public class JetFire extends Particle{
 	}
 	
 	private void setup() {
-		this.offset = initialOffset.copy();
+		this.offset = initialOffset;
+		
 		// Random fade speed
 		setFade((float)((100*Math.random())+35)/15f+0.003f);
 		// Random speed between -2.5 and 2.5 
@@ -43,15 +42,6 @@ public class JetFire extends Particle{
 		setColor(new Vec3(1.0f,0.1f,0.0f));
 		// Set the lift
 		setLife(1.0f);
-	}
-	
-	@Override
-	public float getAlpha() {
-		if (isOn.isOn()) {
-			return getLife();
-		} else {
-			return 0.0f;
-		}
 	}
 	
 	@Override
@@ -78,7 +68,14 @@ public class JetFire extends Particle{
 	
 	@Override
 	public Vec3 getPosition() {
-		return shipPosition.add(offset);
+		Vec3 position = ship.getPosition();
+		position = position.add(ship.getRotation().GetXVector().multiply(offset.getX()));
+		// offset position along Y vector		
+		position = position.add(ship.getRotation().GetYVector().multiply(offset.getY()));
+		// offset position along Z vector		
+		position = position.add(ship.getRotation().GetZVector().multiply(offset.getZ()));
+		
+		return position;
 	}
 
 	@Override

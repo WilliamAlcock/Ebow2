@@ -8,7 +8,6 @@ import javax.media.opengl.GLAnimatorControl;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
-import javax.media.opengl.glu.GLU;
 
 import GameEngine.GameEngine;
 import VMQ.WindowDimensions;
@@ -28,7 +27,7 @@ public class Ebow extends GLCanvas implements GLEventListener{
 	private static final int CANVAS_HEIGHT = 480;				// height of the drawable		
 	private static final int FPS = 60; 							// animator's target frames per second
 	
-	private WindowDimensions windowDimensions = new WindowDimensions(CANVAS_WIDTH,CANVAS_HEIGHT,45,1,100,new Vec3(0,110,0),new Vec3(0,0,0),new Vec3(0,0,1));
+	private WindowDimensions windowDimensions = new WindowDimensions(CANVAS_WIDTH,CANVAS_HEIGHT,4.0f/3.0f,45,50,80,new Vec3(0,100,0),new Vec3(0,0,0),new Vec3(0,0,-1));
 	
 	private GameKeyListener keyListener;						// Keyboard listener
 	private GameEngine gameEngine;								// Game Engine
@@ -86,11 +85,11 @@ public class Ebow extends GLCanvas implements GLEventListener{
             	System.exit(0);
 	        }
          }.start();
-	}
+	}		
 	
 	public void init(GLAutoDrawable drawable) {
 		GL3 gl = drawable.getGL().getGL3();      				// get the OpenGL 2 graphics context
-		System.out.println(gl.glGetString(GL3.GL_SHADING_LANGUAGE_VERSION));
+		System.err.println("Shading Language "+gl.glGetString(GL3.GL_SHADING_LANGUAGE_VERSION));
 	    gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f); 				// set background (clear) color
 	    gl.glClearDepth(1.0f);      							// set clear depth value to farthest
 	    
@@ -103,23 +102,21 @@ public class Ebow extends GLCanvas implements GLEventListener{
         display.setEnemyObjects(gameEngine.getEnemysToDisplay());
         display.setPlayerObjects(gameEngine.getPlayersToDisplay());
         display.setParticleObjects(gameEngine.getParticlesToDisplay());
-        display.setHUDObjects(gameEngine.getHUDObjects());
+//      display.setHUDObjects(gameEngine.getHUDObjects());
         keyListener.setGameEngine(gameEngine);													// Set the keyBoard listener to point at the game engine
+        setupWindow(gl,CANVAS_HEIGHT,CANVAS_WIDTH,0,0);
 	}
 	
 	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 	    GL3 gl = drawable.getGL().getGL3();  					// get the OpenGL 4 graphics context
+	    setupWindow(gl,width,height,x,y);
+	}
+	
+	private void setupWindow(GL3 gl,int width,int height,int x,int y) {
 	    if (height == 0) height = 1;   							// prevent divide by zero
 	    
 	    if ((width!=windowDimensions.getWidth()) | (height!=windowDimensions.getHeight())) {
-		    System.out.println("Window dimensions set : "+width+","+height);
-			// Set the OpenGL viewport to the same size as the surface.
-		    
-		    float aspectWidth = ((float)height)*(4.0f/3.0f);
-		    System.out.println("ASPECT WIDTH: "+aspectWidth+" HEIGHT "+height);
-		    float xpos = ((float)width-aspectWidth)/2;
-		    gl.glViewport((int)xpos,0,(int)aspectWidth, height);
-			windowDimensions.setWidth((int)aspectWidth);
+			windowDimensions.setWidth(width);
 			windowDimensions.setHeight(height);
 			windowDimensions.setProjectionMatrix();
 		}
@@ -136,6 +133,7 @@ public class Ebow extends GLCanvas implements GLEventListener{
 	    // Update Game Engine
 	    gameEngine.tick();
 	    // Update the display
+	    display.setEnemyObjects(gameEngine.getEnemysToDisplay());
 	    display.tick();
 	    // Flush buffer
 	    gl.glFlush();

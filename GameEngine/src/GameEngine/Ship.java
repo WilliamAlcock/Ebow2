@@ -8,8 +8,7 @@ public class Ship extends PlayerPart implements Fires{
 	private BulletGenerator bulletGenerator;
 	
 	public Ship(Vec3 position,float speed,Player player) {
-		super(position,speed,0.0f,100,1);			// 500 health damage 1
-//		setScale(new Vec3(2.0f/3.0f,2.0f/3.0f,2.0f/3.0f));
+		super(position,speed,0.0f,500,1);			// 500 health damage 1
 		bulletGenerator = new BulletGenerator(new LaserRectangle(new Vec3(),100));
 		setPlayer(player);
 	}
@@ -25,11 +24,11 @@ public class Ship extends PlayerPart implements Fires{
 	}
 	
 	public void forward(float timeSinceLastTick) {
-		getPosition().setZ(getPosition().getZ()+timeSinceLastTick*getSpeed());
+		getPosition().setZ(getPosition().getZ()+timeSinceLastTick*-getSpeed());
 	}
 	
 	public void reverse(float timeSinceLastTick) {
-		getPosition().setZ(getPosition().getZ()+timeSinceLastTick*-getSpeed());
+		getPosition().setZ(getPosition().getZ()+timeSinceLastTick*getSpeed());
 	}
 	
 	public void bankLeft(float timeSinceLastTick) {
@@ -76,8 +75,9 @@ public class Ship extends PlayerPart implements Fires{
 	public void fireWeapon(float timeSinceLastTick,List<InPlayObj> fireList) {
 		if (fires) {
 			if (bulletGenerator.readyToFire()) {
-				bulletGenerator.setPosition(new Vec3(getPosition().getX(),getPosition().getY(),getPosition().getZ()+5.0f));
-				bulletGenerator.addMovement(new MovementLinear(getRotation().GetZVector(),60.0f));
+				bulletGenerator.setPosition(new Vec3(getPosition().getX(),getPosition().getY(),getPosition().getZ()-5.0f));
+				bulletGenerator.clearMovement();
+				bulletGenerator.addMovement(new MovementLinear(getRotation().GetZVector().multiply(-1),60.0f));
 				fireList.add(bulletGenerator.generateBullet());
 			}
 		}

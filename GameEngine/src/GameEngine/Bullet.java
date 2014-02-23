@@ -4,7 +4,7 @@ import VMQ.Vec3;
 public abstract class Bullet extends InPlayObj{ 
 	
 	public Bullet(Vec3 position, float speed, float rotSpeed,int damage) {
-		super(position,speed,rotSpeed,0,1,damage);			// all bullets have 1 health
+		super(position,speed,rotSpeed,1,damage);			// all bullets have 1 health
 	}
 	
 	@Override

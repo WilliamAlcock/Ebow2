@@ -51,7 +51,7 @@ void main(void)
 	// dont modulate the underlying color with reflected light
 	// only with scattered light
 	
-	vec3 rgb = min(material_Emission + color.rgb * scatteredLight , vec3(1.0));
+	vec3 rgb = min(color.rgb * scatteredLight , vec3(1.0));
 	
 	FragColor = vec4(rgb ,color.a * object_Color.a);
 }

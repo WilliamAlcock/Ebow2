@@ -15,7 +15,7 @@ public class LevelHolder {
 	public LevelHolder(WindowDimensions windowDimensions) {
 		this.viewingSquare = new ViewingSquare(new Vec3(0,75,0));
 		editorObjects.add(viewingSquare);
-		Enemy newEnemy = new EnemyShip(new Vec3(0,0,0), 0, 0, 0);
+		Enemy newEnemy = new EnemyShip(new Vec3(0,0,0), 0, 0);
 		newEnemy.setScale(newEnemy.getScale().multiply(0.5f));
 		enemys.add(newEnemy);
 	}
